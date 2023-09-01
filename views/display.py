@@ -5,6 +5,11 @@ from views.helpers import give_date
 class Display():
 
     def main_menu(self):
+        """_summary_
+
+        Returns:
+            _type_: _description_
+        """
         menu_choice = input("Choisir la fonction : \n1. Gérer les tournois\n2. Ajouter un joueur\n"
                             "3. Afficher des rapports \n")
         return menu_choice
