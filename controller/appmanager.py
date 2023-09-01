@@ -21,6 +21,7 @@ class MainController:
         # initalise managers
         player_manager = PlayerManager()
         tournament_manager = TournamentManager()
+        current_tournament = None
 
         # initialise display
         display = Display()
@@ -61,7 +62,8 @@ class MainController:
                     if menu_choice == tournament["name"]:
                         tournament = tournament_manager.convert_tournament_dict_to_class(tournament)
                         report.tournament_details(tournament)
-        if main_menu == "1":
+
+        if current_tournament is not None:
             for n in range(current_tournament.num_rounds):
                 for match in current_tournament.current_round.match_list:
                     while match.result is None:
@@ -233,7 +235,11 @@ class TournamentManager():
         tournaments_list = self.load_tournaments()
         for tournament in tournaments_list:
             if resumed_tournament_name == tournament["name"]:
-                return self.convert_tournament_dict_to_class(tournament)
+                tournament = self.convert_tournament_dict_to_class(tournament)
+                if tournament.current_round.round_number <= tournament.num_rounds:
+                    return tournament
+                else:
+                    print("Tournoi déjà terminé")
 
     def convert_tournament_dict_to_class(self, tournament):
         """_summary_
@@ -309,8 +315,14 @@ class MatchManager():
             player_2 = Player(**match["player_2"])
         match = Match(**match)
         match.player_1 = player_1
+
         try:
             match.player_2 = player_2
+        except Exception as e:
+            print(e)
+
+        try:
+            match.result = Player(**match.result)
         except Exception as e:
             print(e)
         return match

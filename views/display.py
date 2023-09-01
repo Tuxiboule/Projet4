@@ -12,6 +12,10 @@ class Display():
         """
         menu_choice = input("Choisir la fonction : \n1. Gérer les tournois\n2. Ajouter un joueur\n"
                             "3. Afficher des rapports \n")
+        while menu_choice not in ("1", "2", "3"):
+            print("Saisie éronée, veuillez renseigner une saisie valide")
+            menu_choice = input("Choisir la fonction : \n1. Gérer les tournois\n2. Ajouter un joueur\n"
+                                "3. Afficher des rapports \n")
         return menu_choice
 
     def tournament_menu(self):
@@ -20,7 +24,14 @@ class Display():
         Returns:
             str: choice in the menu
         """
-        menu_choice = input("Choisir la fonction : \n1. Lancer un nouveau tournoi\n2. Reprendre un tournoi existant\n")
+        menu_choice = input("Choisir la fonction : \n1. "
+                            "Lancer un nouveau tournoi\n2. Reprendre un tournoi existant\n"
+                            )
+        while menu_choice not in ("1", "2"):
+            print("Saisie éronée, veuillez renseigner une saisie valide")
+            menu_choice = input("Choisir la fonction : \n1. "
+                                "Lancer un nouveau tournoi\n2. Reprendre un tournoi existant\n"
+                                )
         return menu_choice
 
     def resume_tournament_menu(self):
@@ -52,17 +63,29 @@ class Display():
            list[str]:
         """
         match = match_list[match_number]
-        temp = int(input("Qui a gagné entre : \n 1. "
-                         f"{match.player_1} \net "
-                         f"\n 2. {match.player_2} ?\n"
-                         " 3. Match nul \n"))
-        if temp == 1:
+        menu_choice = int(input("Qui a gagné entre : \n 1. "
+                                f"{match.player_1.last_name}, {match.player_1.first_name} \net "
+                                f"\n 2. {match.player_2.last_name}, {match.player_2.first_name} ?\n"
+                                " 3. Match nul \n"
+                                )
+                          )
+        while menu_choice not in ("1", "2", "3"):
+            print("Saisie éronée, veuillez renseigner une saisie valide")
+            menu_choice = int(input("Qui a gagné entre : \n 1. "
+                                    f"{match.player_1.last_name}, {match.player_1.first_name} \net "
+                                    f"\n 2. {match.player_2.last_name}, {match.player_2.first_name} ?\n"
+                                    " 3. Match nul \n"
+                                    )
+                              )
+        if menu_choice == 1:
             match.result = match_list[match_number].player_1
             match_list[match_number].player_1.point += 1
-        elif temp == 2:
+
+        elif menu_choice == 2:
             match.result = match_list[match_number].player_2
             match_list[match_number].player_2.point += 1
-        elif temp == 3:
+
+        elif menu_choice == 3:
             match.result = "Match nul"
             match_list[match_number].player_1.point += 0.5
             match_list[match_number].player_2.point += 0.5
@@ -82,14 +105,20 @@ class Display():
         for match in round.match_list:
             match_number += 1
             if match.player_2 is None:
-                match = (f"{match_number}. {match.player_1.first_name} {match.player_1.last_name} passe")
+                match = (f"{match_number}. {match.player_1.first_name} {match.player_1.last_name} bye")
+            elif match.result is None:
+                match = (f"{match_number}. {match.player_1.first_name} {match.player_1.last_name} "
+                         "contre "
+                         f"{match.player_2.first_name} {match.player_2.last_name}"
+                         )
+
             else:
                 match = (f"{match_number}. {match.player_1.first_name} {match.player_1.last_name} "
                          "contre "
                          f"{match.player_2.first_name} {match.player_2.last_name}"
-                         f"\nGagnant : {match.result['first_name']} {match.result['last_name']}"
+                         f"\nGagnant : {match.result.first_name} {match.result.last_name}"
                          )
-                match_list_str.append(match)
+            match_list_str.append(match)
         return match_list_str
 
     def current_round(self, tournament):

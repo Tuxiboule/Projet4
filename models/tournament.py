@@ -71,6 +71,7 @@ class Tournament():
                 match = Match(pair[0], pair[1], None)
             else:
                 match = Match(pair[0], None, None)
+                match.result = pair[0]
 
             matches.append(match)
         return matches
