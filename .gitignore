@@ -10,3 +10,4 @@ env
 Livrable
 flake8
 .git
+test.py
