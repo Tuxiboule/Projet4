@@ -22,6 +22,11 @@ class Tournament():
     description: str
 
     def pairing(self):
+        """_summary_
+        pairs players depending on their ranking
+        Returns:
+            list(list(Player)): list of paired players
+        """
         pairs = []
         if self.current_round.round_number == 1:
             random.shuffle(self.players)
@@ -44,12 +49,21 @@ class Tournament():
         return pairs
 
     def initialise_round(self):
+        """_summary_
+        initalise a new round
+        Returns:
+            Round: Round class
+        """
         matches = self.initialise_matches()
         round = Round(1, matches, give_date(), None)
         self.current_round = round
         return self
 
     def initialise_matches(self):
+        """
+        Returns:
+            list[Match]: list containing all matches
+        """
         pairs = self.pairing()
         matches = []
         for pair in pairs:
@@ -62,6 +76,11 @@ class Tournament():
         return matches
 
     def next_round(self):
+        """_summary_
+        Pass to the next round
+        Returns:
+            Round: actualised round
+        """
         self.round_list.append(copy.deepcopy(self.current_round))
         self.current_round.round_number += 1
         self.current_round.match_list = self.initialise_matches()

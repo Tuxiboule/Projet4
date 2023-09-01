@@ -6,27 +6,51 @@ class Display():
 
     def main_menu(self):
         """_summary_
-
+        Main menu of the program
         Returns:
-            _type_: _description_
+            str: choice in the menu
         """
         menu_choice = input("Choisir la fonction : \n1. Gérer les tournois\n2. Ajouter un joueur\n"
                             "3. Afficher des rapports \n")
         return menu_choice
 
     def tournament_menu(self):
+        """_summary_
+        Menu to handle tournaments
+        Returns:
+            str: choice in the menu
+        """
         menu_choice = input("Choisir la fonction : \n1. Lancer un nouveau tournoi\n2. Reprendre un tournoi existant\n")
         return menu_choice
 
     def resume_tournament_menu(self):
+        """_summary_
+        Menu to input wich tournament to resume
+        Returns:
+            str: choice in the menu
+        """
         menu_choice = input("Renseigner le nom du tournoi à reprendre :")
         return menu_choice
 
     def ask_for_match_number(self):
+        """_summary_
+        Menu to ask user wich match to complete
+        Returns:
+            str: choice in the menu
+        """
         menu_choice = input("De quel match voulez vous renseigner le resultat ?\n")
         return menu_choice
 
     def ask_for_result(self, match_number, match_list):
+        """_summary_
+        Menu to ask the result of a match
+        Args:
+            match_number (int): number of the match
+            match_list (list[Match]): list of all matches
+
+        Returns:
+           list[str]:
+        """
         match = match_list[match_number]
         temp = int(input("Qui a gagné entre : \n 1. "
                          f"{match.player_1} \net "
@@ -45,6 +69,14 @@ class Display():
         return match_list
 
     def match_list(self, round):
+        """_summary_
+        Returns a list of matches ready to be displayed
+        Args:
+            round (Round): class' round
+
+        Returns:
+            list[str]: list of displayed matches
+        """
         match_list_str = []
         match_number = 0
         for match in round.match_list:
@@ -61,6 +93,11 @@ class Display():
         return match_list_str
 
     def current_round(self, tournament):
+        """_summary_
+        Display the current round's match list
+        Args:
+            tournament (Tournament): class' tournament
+        """
         print(f"ROUND : {tournament.current_round.round_number}")
         for display_match in self.match_list(tournament.current_round):
             print(display_match)
@@ -71,6 +108,14 @@ class Display():
                                                         )
 
     def next_round(self, tournament):
+        """_summary_
+        Displays ranking at the end of a round
+        Args:
+            tournament (Tournament): class' tournament
+
+        Returns:
+            Tournament: class' tournament
+        """
         tournament.current_round.end_time = give_date()
         print("Tous les matchs renseignés, passage au round suivant\n CLASSEMENT")
         tournament = tournament.next_round()
@@ -85,6 +130,11 @@ class Display():
         print("Tournoi terminé, retour à l'accueil")
 
     def report_menu(self):
+        """_summary_
+        Display menu for tournament reports
+        Returns:
+            str: choice in the menu
+        """
         menu_choice = input("1. Liste des joueurs par ordre alphabétique\n"
                             "2. Liste de tous les tournois\n"
                             "3. Détails d'un tournoi\n"
@@ -92,21 +142,40 @@ class Display():
         return menu_choice
 
     def tournament_details(self):
+        """_summary_
+        ask for tournament's name
+        Returns:
+            str: tournament's name
+        """
         menu_choice = input("Saisir le nom du tournoi : ")
         return menu_choice
 
 
 class Report():
     def player_list(self, players):
+        """_summary_
+        Displays a list of all players in alphabetical order
+        Args:
+            players (list[Player]): list of class' player
+        """
         for player in players:
             print(player.last_name, player.first_name)
 
     def tournament_list(self, tournaments):
+        """_summary_
+        Display a liste of all tournaments' name, location, start date, description
+        Args:
+            tournaments (list[dict]): _description_
+        """
         for tournament in tournaments:
             print(tournament["name"], tournament["location"], tournament["start_date"], tournament["description"])
 
     def tournament_details(self, tournament):  # name / date, players, rounds & matches
-
+        """_summary_
+        Displays details about a specific tournament
+        Args:
+            tournament (Tournament): class' tournament
+        """
         display = Display()
         print(f"Nom du tournoi : {tournament.name}\n"
               f"Date de début du tournoi : {tournament.start_date}\n"
