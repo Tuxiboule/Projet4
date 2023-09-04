@@ -28,10 +28,6 @@ Exécutez le script Python `main.py` pour lancer le programme
 
 Il est possible de quitter le script à tout moment via ctrl + c
 
-## Avertissement
-
-Ce script a été développé uniquement à des fins éducatives et de démonstration. Veuillez vérifier les conditions d'utilisation du site web avant de scraper ses données. L'utilisation non autorisée de ce script pourraient violer les droits d'auteur et les politiques du site web ciblé.
-
 ## Auteur
 
 Ce projet a été développé par [Guillaume Vinuesa](https://github.com/Tuxiboule).

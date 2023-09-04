@@ -59,7 +59,7 @@ class MainController:
             # report tournaments
             elif report_menu == "2":
                 report.tournament_list(tournament_manager.load_tournaments())
-            # report specific tournament
+            # report specific tournament details
             elif report_menu == "3":
                 menu_choice = display.tournament_details(tournament_manager.load_tournaments())
                 for tournament in tournament_manager.load_tournaments():
@@ -68,7 +68,9 @@ class MainController:
                         report.tournament_details(tournament)
         # tournament runs
         if current_tournament is not None:
-            for n in range(current_tournament.num_rounds):
+            iteration_counter = current_tournament.current_round.round_number
+            while iteration_counter < current_tournament.num_rounds:
+                iteration_counter += 1
                 for match in current_tournament.current_round.match_list:
                     while match.result is None:
                         display.current_round(current_tournament)
@@ -324,13 +326,16 @@ class MatchManager():
         try:
             match.player_2 = player_2
         except Exception as e:
-            print(f"Pas de second joueur à appairer avec {match.player_1.last_name} {match.player_1.first_name}\n"
+            print(f"Pas de second joueur appairé avec {match.player_1.last_name} {match.player_1.first_name} | "
                   "Victoire par défaut 'Bye'"
+                  f"| Erreur : {e}"
                   )
-            print("Erreur : ", e)
 
         try:
             match.result = Player(**match.result)
         except Exception as e:
-            print(e)
+            print(f"Pas de resultat renseigné pour le match {match.player_1.last_name} {match.player_1.first_name} VS "
+                  f"{match.player_2.last_name} {match.player_2.first_name}"
+                  f"| Erreur : {e}"
+                  )
         return match
