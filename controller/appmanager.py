@@ -10,6 +10,7 @@ from models.round import Round
 from views.display import Display
 from views.display import Report
 from views.helpers import give_date
+from views.helpers import validate_input
 
 
 class MainController:
@@ -47,22 +48,25 @@ class MainController:
 
             else:
                 # resume existant tournament
-                current_tournament_name = display.resume_tournament_menu()
+                current_tournament_name = display.resume_tournament_menu(tournament_manager.load_tournaments())
                 current_tournament = tournament_manager.resume_tournament(current_tournament_name)
-
+        # report menu
         elif main_menu == "3":
             report_menu = display.report_menu()
+            # report players
             if report_menu == "1":
                 report.player_list(player_manager.load_players())
+            # report tournaments
             elif report_menu == "2":
                 report.tournament_list(tournament_manager.load_tournaments())
+            # report specific tournament
             elif report_menu == "3":
-                menu_choice = display.tournament_details()
+                menu_choice = display.tournament_details(tournament_manager.load_tournaments())
                 for tournament in tournament_manager.load_tournaments():
                     if menu_choice == tournament["name"]:
                         tournament = tournament_manager.convert_tournament_dict_to_class(tournament)
                         report.tournament_details(tournament)
-
+        # tournament runs
         if current_tournament is not None:
             for n in range(current_tournament.num_rounds):
                 for match in current_tournament.current_round.match_list:
@@ -111,10 +115,11 @@ class PlayerManager():
         """_summary_
         add a player into a .json file
         """
-        first_name = input("Prénom ? ")
-        last_name = input("Nom de famille ? ")
-        birth_date = input("Date de naissance ? ")
-        national_chess_id = input("national_chess_id ? ")
+        first_name = validate_input("Prénom ? ", r"^[A-Za-zéèêëàâçîïôûùüÿñÉÈÊËÀÂÇÎÏÔÛÙÜŸÑ\s'\-]+$")
+        last_name = validate_input("Nom de famille ? ", r"^[A-Za-zéèêëàâçîïôûùüÿñÉÈÊËÀÂÇÎÏÔÛÙÜŸÑ\s'\-]+$")
+        birth_date = validate_input("Date de naissance ? Format DD/MM/YY : ",
+                                    r"^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/[0-9]{2}$")
+        national_chess_id = validate_input("national_chess_id ? Format AA12345 : ", r"^[A-Z]{2}\d{5}$")
         new_player = Player(first_name, last_name, birth_date, national_chess_id)
         players_list = self.load_players()
         players_list.append(new_player)
@@ -319,7 +324,10 @@ class MatchManager():
         try:
             match.player_2 = player_2
         except Exception as e:
-            print(e)
+            print(f"Pas de second joueur à appairer avec {match.player_1.last_name} {match.player_1.first_name}\n"
+                  "Victoire par défaut 'Bye'"
+                  )
+            print("Erreur : ", e)
 
         try:
             match.result = Player(**match.result)

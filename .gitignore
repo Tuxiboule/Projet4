@@ -10,7 +10,7 @@ env
 Livrable
 flake8
 .git
-data
+
 
 #ignore certains fichiers
 test.py

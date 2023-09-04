@@ -34,23 +34,36 @@ class Display():
                                 )
         return menu_choice
 
-    def resume_tournament_menu(self):
+    def resume_tournament_menu(self, tournaments):
         """_summary_
         Menu to input wich tournament to resume
-        Returns:
-            str: choice in the menu
-        """
-        menu_choice = input("Renseigner le nom du tournoi à reprendre :")
-        return menu_choice
+        Args:
+            tournaments (list): List of tournament dictionaries
 
-    def ask_for_match_number(self):
+        Returns:
+            str: name of chosen tournament
+        """
+        while True:
+            menu_choice = input("Renseigner le nom du tournoi à reprendre :")
+            for tournament in tournaments:
+                if tournament["name"] == menu_choice:
+                    return menu_choice
+            print("Ce tournoi n'existe pas, veuillez renseigner un nom valide")
+
+    def ask_for_match_number(self, current_round):
         """_summary_
         Menu to ask user wich match to complete
         Returns:
             str: choice in the menu
         """
-        menu_choice = input("De quel match voulez vous renseigner le resultat ?\n")
-        return menu_choice
+        while True:
+            menu_choice = input("De quel match voulez vous renseigner le resultat ?\n")
+            if not (1 <= int(menu_choice) <= len(current_round.match_list)):
+                print("Saisie éronée, veuillez renseigner une saisie valide")
+            elif current_round.match_list[int(menu_choice) - 1].result is not None:
+                print("Ce match a déjà un résultat enregistré.")
+            else:
+                return menu_choice
 
     def ask_for_result(self, match_number, match_list):
         """_summary_
@@ -63,13 +76,13 @@ class Display():
            list[str]:
         """
         match = match_list[match_number]
-        menu_choice = int(input("Qui a gagné entre : \n 1. "
-                                f"{match.player_1.last_name}, {match.player_1.first_name} \net "
-                                f"\n 2. {match.player_2.last_name}, {match.player_2.first_name} ?\n"
-                                " 3. Match nul \n"
+        menu_choice = int(input("Quel est le résultat du match : \n1. "
+                                f"{match.player_1.last_name}, {match.player_1.first_name} \n"
+                                f"2. {match.player_2.last_name}, {match.player_2.first_name} ?\n"
+                                "3. Match nul \n"
                                 )
                           )
-        while menu_choice not in ("1", "2", "3"):
+        while menu_choice not in (1, 2, 3):
             print("Saisie éronée, veuillez renseigner une saisie valide")
             menu_choice = int(input("Qui a gagné entre : \n 1. "
                                     f"{match.player_1.last_name}, {match.player_1.first_name} \net "
@@ -77,18 +90,20 @@ class Display():
                                     " 3. Match nul \n"
                                     )
                               )
+
         if menu_choice == 1:
-            match.result = match_list[match_number].player_1
-            match_list[match_number].player_1.point += 1
+            match.set_result(match_list[match_number].player_1)
+            match_list[match_number].player_1.addpoint(1)
 
         elif menu_choice == 2:
-            match.result = match_list[match_number].player_2
-            match_list[match_number].player_2.point += 1
+            match.set_result(match_list[match_number].player_2)
+            match_list[match_number].player_2.addpoint(1)
 
         elif menu_choice == 3:
-            match.result = "Match nul"
-            match_list[match_number].player_1.point += 0.5
-            match_list[match_number].player_2.point += 0.5
+            match.set_result("Match nul")
+            match_list[match_number].player_1.addpoint(0.5)
+            match_list[match_number].player_2.addpoint(0.5)
+
         return match_list
 
     def match_list(self, round):
@@ -104,19 +119,28 @@ class Display():
         match_number = 0
         for match in round.match_list:
             match_number += 1
+            # case where a player have no oppenent
             if match.player_2 is None:
-                match = (f"{match_number}. {match.player_1.first_name} {match.player_1.last_name} bye")
+                match = (f"{match_number}. {match.player_1.first_name} {match.player_1.last_name} | Bye")
+            # case where match result is not known yet
             elif match.result is None:
                 match = (f"{match_number}. {match.player_1.first_name} {match.player_1.last_name} "
                          "contre "
                          f"{match.player_2.first_name} {match.player_2.last_name}"
                          )
-
+            # case where match is draw
+            elif match.result == "Match nul":
+                match = (f"{match_number}. {match.player_1.first_name} {match.player_1.last_name} "
+                         "contre "
+                         f"{match.player_2.first_name} {match.player_2.last_name} "
+                         "| Match nul"
+                         )
+            # case where match winner is known and not draw
             else:
                 match = (f"{match_number}. {match.player_1.first_name} {match.player_1.last_name} "
                          "contre "
                          f"{match.player_2.first_name} {match.player_2.last_name}"
-                         f"\nGagnant : {match.result.first_name} {match.result.last_name}"
+                         f" | Gagnant : {match.result.first_name} {match.result.last_name}"
                          )
             match_list_str.append(match)
         return match_list_str
@@ -130,11 +154,10 @@ class Display():
         print(f"ROUND : {tournament.current_round.round_number}")
         for display_match in self.match_list(tournament.current_round):
             print(display_match)
-        match_to_complete = self.ask_for_match_number()
+        match_to_complete = self.ask_for_match_number(tournament.current_round)
         tournament.current_round.match_list = (
             self.ask_for_result((int(match_to_complete) - 1),
-                                tournament.current_round.match_list)
-                                                        )
+                                tournament.current_round.match_list))
 
     def next_round(self, tournament):
         """_summary_
@@ -146,7 +169,7 @@ class Display():
             Tournament: class' tournament
         """
         tournament.current_round.end_time = give_date()
-        print("Tous les matchs renseignés, passage au round suivant\n CLASSEMENT")
+        print("Tous les matchs renseignés, passage au round suivant\n ----CLASSEMENT----")
         tournament = tournament.next_round()
         n = 0
         for player in tournament.players:
@@ -168,16 +191,26 @@ class Display():
                             "2. Liste de tous les tournois\n"
                             "3. Détails d'un tournoi\n"
                             )
+        while menu_choice not in ("1", "2", "3"):
+            print("Saisie éronée, veuillez renseigner une saisie valide")
+            menu_choice = input("1. Liste des joueurs par ordre alphabétique\n"
+                                "2. Liste de tous les tournois\n"
+                                "3. Détails d'un tournoi\n"
+                                )
         return menu_choice
 
-    def tournament_details(self):
+    def tournament_details(self, tournaments):
         """_summary_
         ask for tournament's name
         Returns:
             str: tournament's name
         """
-        menu_choice = input("Saisir le nom du tournoi : ")
-        return menu_choice
+        while True:
+            menu_choice = input("Saisir le nom du tournoi : ")
+            for tournament in tournaments:
+                if tournament["name"] == menu_choice:
+                    return menu_choice
+            print("Ce tournoi n'existe pas, veuillez renseigner un nom valide")
 
 
 class Report():
@@ -199,7 +232,7 @@ class Report():
         for tournament in tournaments:
             print(tournament["name"], tournament["location"], tournament["start_date"], tournament["description"])
 
-    def tournament_details(self, tournament):  # name / date, players, rounds & matches
+    def tournament_details(self, tournament):
         """_summary_
         Displays details about a specific tournament
         Args:
