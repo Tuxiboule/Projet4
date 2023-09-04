@@ -16,16 +16,17 @@ Le script comporte les fonctionnalités suivantes :
   - Description
 - Reprise des tournois à tout moment
 - Déroulé complet d'un tournoi avec archivage des résultats
+- Affichage de rapport contenant :
+  - Une liste des tournois sauvegardés
+  - Une liste des joueurs par ordre alphabétique
+  - Liste des tours et des marchs du tour
 
 ## Utilisation
 
-Assurez-vous d'avoir installé les bibliothèques requises et de mettre en place l'environnement virtuel en exécutant, un fichier requirements.txt est joint pour ce faire et est utilisable via :
->pyth on -m venv env
->env\Scripts\activate.bat
->pip install -r requirements.txt
-
-Ensuite, exécutez le script Python `main.py` pour lancer le programme
+Exécutez le script Python `main.py` pour lancer le programme
 >python main.py
+
+Il est possible de quitter le script à tout moment via ctrl + c
 
 ## Avertissement
 
