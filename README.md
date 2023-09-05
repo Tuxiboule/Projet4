@@ -28,7 +28,7 @@ Exécutez le script Python `main.py` pour lancer le programme
 
 Il est possible de quitter le script à tout moment via ctrl + c, on pourra recharger l'état du programme à tout moment
 
-Il n'est pas nécessaire de mettre en place l'environnement virtuel, le script n'utilisant pas de librairie à installer en plus de celles par défaut
+Il n'est pas nécessaire de mettre en place l'environnement virtuel, le script n'utilisant pas de dépendance à installer en plus de celles par défaut
 
 ## Auteur
 
