@@ -1,4 +1,4 @@
-# Gestionnaire de tournoid 'échec
+# Gestionnaire de tournoi d'échec
 
 Ce script en Python permet de gérer la création, la reprise et le déroulé d'un tournoi d'échecs.
 
@@ -26,7 +26,9 @@ Le script comporte les fonctionnalités suivantes :
 Exécutez le script Python `main.py` pour lancer le programme
 >python main.py
 
-Il est possible de quitter le script à tout moment via ctrl + c
+Il est possible de quitter le script à tout moment via ctrl + c, on pourra recharger l'état du programme à tout moment
+
+Il n'est pas nécessaire de mettre en place l'environnement virtuel, le script n'utilisant pas de librairie à installer en plus de celles par défaut
 
 ## Auteur
 
