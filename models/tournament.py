@@ -30,20 +30,19 @@ class Tournament():
         pairs = []
         if self.current_round.round_number == 1:
             random.shuffle(self.players)
-            for i in range(0, len(self.players), 2):
+            for i in range(0, len(self.players), 2):  # iterate two by two in the list
                 if i+1 < len(self.players):
                     pair = (self.players[i], self.players[i+1])
                     pairs.append(pair)
-
             if len(self.players) % 2 != 0:
                 pairs.append((self.players[-1],))
+
         else:
             self.players = sorted(self.players, key=lambda player: player.point, reverse=True)
             for i in range(0, len(self.players), 2):
                 if i+1 < len(self.players):
                     pair = (self.players[i], self.players[i+1])
                     pairs.append(pair)
-
             if len(self.players) % 2 != 0:
                 pairs.append((self.players[-1],))
         return pairs
@@ -72,7 +71,6 @@ class Tournament():
             else:
                 match = Match(pair[0], None, None)
                 match.result = pair[0]
-
             matches.append(match)
         return matches
 

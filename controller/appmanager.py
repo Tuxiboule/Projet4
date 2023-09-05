@@ -81,7 +81,11 @@ class MainController:
                 tournament_manager.save_tournaments(
                     tournament_manager.convert_tournament_class_to_dict(current_tournament)
                                                     )
+            current_tournament = display.next_round(current_tournament)
             display.tournament_end(current_tournament)
+            tournament_manager.save_tournaments(
+                    tournament_manager.convert_tournament_class_to_dict(current_tournament)
+                                                    )
 
 
 class PlayerManager():

@@ -4,6 +4,7 @@
 
 #ignore les pdf
 *.pdf
+*.ini
 
 #ignore les dossiers présents
 env

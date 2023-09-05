@@ -90,15 +90,15 @@ class Display():
                                     " 3. Match nul \n"
                                     )
                               )
-
+        # P1 won
         if menu_choice == 1:
             match.set_result(match_list[match_number].player_1)
             match_list[match_number].player_1.addpoint(1)
-
+        # P2 Won
         elif menu_choice == 2:
             match.set_result(match_list[match_number].player_2)
             match_list[match_number].player_2.addpoint(1)
-
+        # Draw
         elif menu_choice == 3:
             match.set_result("Match nul")
             match_list[match_number].player_1.addpoint(0.5)
@@ -119,23 +119,23 @@ class Display():
         match_number = 0
         for match in round.match_list:
             match_number += 1
-            # case where a player have no oppenent
+            # Player have no oppenent
             if match.player_2 is None:
                 match = (f"{match_number}. {match.player_1.first_name} {match.player_1.last_name} | Bye")
-            # case where match result is not known yet
+            # Match result is not known yet
             elif match.result is None:
                 match = (f"{match_number}. {match.player_1.first_name} {match.player_1.last_name} "
                          "contre "
                          f"{match.player_2.first_name} {match.player_2.last_name}"
                          )
-            # case where match is draw
+            # Match is draw
             elif match.result == "Match nul":
                 match = (f"{match_number}. {match.player_1.first_name} {match.player_1.last_name} "
                          "contre "
                          f"{match.player_2.first_name} {match.player_2.last_name} "
                          "| Match nul"
                          )
-            # case where match winner is known and not draw
+            # Match winner is known and not draw
             else:
                 match = (f"{match_number}. {match.player_1.first_name} {match.player_1.last_name} "
                          "contre "
