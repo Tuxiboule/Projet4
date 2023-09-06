@@ -30,7 +30,7 @@ Il est possible de quitter le script à tout moment via ctrl + c, on pourra rech
 
 Il n'est pas nécessaire de mettre en place l'environnement virtuel, le script n'utilisant pas de dépendance à installer en plus de celles par défaut.
 
-Le rapport flake8 peut être créé via la commande
+Le rapport flake8 peut être créé via la commande suivant à executer dans le dossier du projet
 >flake8 --format=html --htmldir=flake8_rapport --exclude=env --max-line-length 119
 
 ## Auteur
