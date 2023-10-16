@@ -1,4 +1,3 @@
-![alt text]([http://url/to/img.png](https://t3.ftcdn.net/jpg/05/71/32/30/360_F_571323037_xP80otQeO5KZ7MqArf0tYIgsiLxdPWNU.jpg))
 # Gestionnaire de tournoi d'échec
 
 Ce script en Python permet de gérer la création, la reprise et le déroulé d'un tournoi d'échecs.
