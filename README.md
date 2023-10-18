@@ -1,38 +1,63 @@
-# Gestionnaire de tournoi d'échec
+# A Chess Tournament Manager
+![](icon.png)
 
-Ce script en Python permet de gérer la création, la reprise et le déroulé d'un tournoi d'échecs.
+## About
+This Python script allows you to manage the creation, resumption, and progression of a chess tournament.
 
+## Features
 
-## Fonctionnalités
+The script includes the following features:
 
-Le script comporte les fonctionnalités suivantes :
-- Gestion d'une base de données de joueurs via un fichier .json avec :
-  - nom / prénom / id d'échec / date de naissance
-- Création d'un nouveau tournoi avec tracking de :
-  - Date/Heure de début / fin du tournoi
-  - Nom
-  - Lieu
-  - Nombre de tours
+- Management of a player database using a .json file, which includes:
+  - Name
+  - Surname
+  - Chess ID
+  - Date of birth
+  
+- Creation of a new tournament with tracking of:
+  - Start and end date/time of the tournament
+  - Name
+  - Location
+  - Number of rounds
   - Description
-- Reprise des tournois à tout moment
-- Déroulé complet d'un tournoi avec archivage des résultats
-- Affichage de rapport contenant :
-  - Une liste des tournois sauvegardés
-  - Une liste des joueurs par ordre alphabétique
-  - Liste des tours et des marchs du tour
 
-## Utilisation
+- Resuming tournaments at any time
+- Full tournament progression with result archiving
+- Display of a report containing:
+  - A list of saved tournaments
+  - A list of players in alphabetical order
+  - List of rounds and round matches
 
-Exécutez le script Python `main.py` pour lancer le programme
+
+## Usage
+
+Run the Python script main.py to launch the program.
+
 >python main.py
 
-Il est possible de quitter le script à tout moment via ctrl + c, on pourra recharger l'état du programme à tout moment
+You can exit the script at any time by pressing ctrl + c.
 
-Il n'est pas nécessaire de mettre en place l'environnement virtuel, le script n'utilisant pas de dépendance à installer en plus de celles par défaut.
+## Context - Dev a Python Software
 
-Le rapport flake8 peut être créé via la commande suivante à executer dans le dossier du projet
->flake8 --format=html --htmldir=flake8_rapport --exclude=env --max-line-length 119
+Second Python project, I greatly enjoyed exploring the concept of OOP as well as the MVC model.
 
-## Auteur
+## Skills
+- Object Oriented Programming
+  - Class
+  - Function
 
-Ce projet a été développé par [Guillaume Vinuesa](https://github.com/Tuxiboule).
+- MVC Software Design Pattern
+  - Model
+  - View
+  - Controller
+
+- Code Linting
+  - "Flake 8" 0 violations*
+  - Use of Datastring
+
+- Read/Write .json file
+
+
+
+## Credits
+[Tuxiboule](https://github.com/Tuxiboule)
