@@ -31,6 +31,7 @@ The script includes the following features:
 
 ## Usage
 
+
 Run the Python script main.py to launch the program.
 
 >python main.py
