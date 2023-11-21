@@ -2,6 +2,7 @@
 ![](icon.png)
 
 ## About
+
 This Python script allows you to manage the creation, resumption, and progression of a chess tournament.
 
 ## Features
@@ -42,6 +43,7 @@ You can exit the script at any time by pressing ctrl + c.
 Second Python project, I greatly enjoyed exploring the concept of OOP as well as the MVC model.
 
 ## Skills
+
 - Object Oriented Programming
   - Class
   - Function
