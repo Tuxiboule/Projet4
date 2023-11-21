@@ -29,7 +29,6 @@ The script includes the following features:
   - A list of players in alphabetical order
   - List of rounds and round matches
 
-
 ## Usage
 
 Run the Python script main.py to launch the program.
@@ -58,8 +57,6 @@ Second Python project, I greatly enjoyed exploring the concept of OOP as well as
   - Use of Datastring
 
 - Read/Write .json file
-
-
 
 ## Credits
 [Tuxiboule](https://github.com/Tuxiboule)
