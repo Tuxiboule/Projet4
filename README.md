@@ -3,7 +3,6 @@
 
 ## About
 
-
 This Python script allows you to manage the creation, resumption, and progression of a chess tournament.
 
 ## Features
