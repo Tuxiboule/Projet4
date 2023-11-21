@@ -3,6 +3,7 @@
 
 ## About
 
+
 This Python script allows you to manage the creation, resumption, and progression of a chess tournament.
 
 ## Features
@@ -30,7 +31,6 @@ The script includes the following features:
   - List of rounds and round matches
 
 ## Usage
-
 
 Run the Python script main.py to launch the program.
 
